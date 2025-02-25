@@ -1,18 +1,32 @@
-import { useState } from "react";
+import { useState,useEffect} from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
   const [count, setCount] = useState(0);
+useEffect(() => {
+  console.log("haciendo el fetch");
+    fetch(`https://travel-tool.net/admin/xml/allseasons.xml`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("No se pudo cargar el archivo XML.");
+        }
+        console.log(response);
+      })
+     
+      .catch((error) => {
+        console.error("Error al obtener los paquetes:", error);
+      });
+  }, []); // Este useEffect solo se ejecuta una vez al montar el componente
 
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
+        <a rel="noopener" href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
-        <a href="https://react.dev" target="_blank">
+        <a   rel="noopener"href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
