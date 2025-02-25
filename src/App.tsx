@@ -7,17 +7,17 @@ function App() {
   const [count, setCount] = useState(0);
 useEffect(() => {
   console.log("haciendo el fetch");
-    fetch(`https://travel-tool.net/admin/xml/allseasons.xml`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("No se pudo cargar el archivo XML.");
-        }
-        console.log(response);
-      })
-     
-      .catch((error) => {
-        console.error("Error al obtener los paquetes:", error);
-      });
+    fetch("https://travel-tool.net/admin/xml/allseasons.xml", {
+  method: "GET",
+  headers: {
+    "Origin": "https://testtravel-smoky.vercel.app",
+    "X-Requested-With": "XMLHttpRequest"
+  }
+})
+  .then(response => response.text())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+
   }, []); // Este useEffect solo se ejecuta una vez al montar el componente
 
   return (
